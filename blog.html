@@ -56,8 +56,8 @@
         <h1 class="glitch" data-text="BLOG">
           <span class="title-line">BLOG</span>
         </h1>
-        <div class="subtitle">Articles rendered from Markdown</div>
-        <p class="lead">Posts live in the `publications/` folder as `.md` files with images supported. Use the manifest to list them below.</p>
+        <div class="subtitle">Notes and deep dives on Android, UI, performance, and DX.</div>
+        <p class="lead">I write to share practical insights from building Android apps: architecture patterns, WebView integrations, Compose, tooling, and workflows.</p>
       </div>
     </section>
 
@@ -76,6 +76,9 @@
 
   <footer>
     © <span id="year"></span> Anton Sinitsyn.
+    <!-- Start Bravenet.com Service Code -->
+    <script type="text/javascript" src="https://pub19.bravenet.com/counter/code.php?id=406788&usernum=1554474456&cpv=3"></script>
+    <!-- End Bravenet.com Service Code -->
   </footer>
 
   <script>
@@ -224,20 +227,9 @@
               var span = h.querySelector('.title-line');
               if (span) span.textContent = res.meta.title;
             }
-            if (s) s.textContent = (res.meta && res.meta.date) ? res.meta.date : '';
+            if (s) s.textContent = (res.meta && res.meta.title) ? res.meta.title : '';
             if (l) l.textContent = (res.meta && res.meta.description) ? res.meta.description : '';
-            // remote counter via CountAPI (real results only)
-            var NS = 'sinii_github_io';
-            var KEY = 'post_' + slug;
-            var badge = document.createElement('div');
-            badge.className = 'meta';
-            badge.textContent = 'Views: …';
-            articleSection.querySelector('.card').insertAdjacentElement('afterbegin', badge);
-            function update(v){ badge.textContent = 'Views: ' + v; }
-            fetch('https://api.countapi.xyz/hit/' + NS + '/' + encodeURIComponent(KEY))
-              .then(function(r){ return r.json(); })
-              .then(function(d){ if (d && typeof d.value === 'number') update(d.value); })
-              .catch(function(){});
+            // View counter handled in page footer via Bravenet
           });
         }
       });

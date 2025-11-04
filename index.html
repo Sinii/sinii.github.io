@@ -291,7 +291,10 @@
   </main>
 
   <footer>
-    © <span id="year"></span> Anton Sinitsyn. Built with neon and nostalgia. · Views: <span id="vc"></span>
+    © <span id="year"></span> Anton Sinitsyn. Built with neon and nostalgia.
+    <!-- Start Bravenet.com Service Code -->
+    <script type="text/javascript" src="https://pub19.bravenet.com/counter/code.php?id=406788&usernum=1554474456&cpv=3"></script>
+    <!-- End Bravenet.com Service Code -->
   </footer>
 
   <script>
@@ -350,18 +353,7 @@
     })();
   </script>
 
-  <script>
-    // Remote view counter using CountAPI (persists across sessions)
-    (function(){
-      var NS = 'sinii_github_io';
-      var KEY = 'index';
-      var el = document.getElementById('vc');
-      fetch('https://api.countapi.xyz/hit/' + NS + '/' + encodeURIComponent(KEY))
-        .then(function(r){ return r.json(); })
-        .then(function(d){ if (el && d && typeof d.value === 'number') el.textContent = d.value; })
-        .catch(function(){});
-    })();
-  </script>
+  
 
   <script>
     (function(){

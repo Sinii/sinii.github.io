@@ -1,12 +1,5 @@
 [
   {
-    "slug": "hello-world",
-    "title": "Hello, Blog",
-    "date": "2025-11-04",
-    "description": "Welcome to my blog. Posts here are plain Markdown files. You can include images:",
-    "path": "publications/hello-world.md"
-  },
-  {
     "slug": "cursor-android-setup",
     "title": "Cursor for Android — First App Guide",
     "date": "2025-11-04",

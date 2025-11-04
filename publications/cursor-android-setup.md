@@ -6,8 +6,6 @@ description: Template article with images and step-by-step instructions to creat
 
 # Cursor for Android — First App Guide
 
-> This is a ready-to-edit template article. Replace screenshots and tweak steps to match your setup.
-
 <!-- images removed per request; keep concise headings -->
 
 ## Prerequisites
