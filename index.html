@@ -1,1 +1,402 @@
-Hello World
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anton Sinitsyn — CV</title>
+  <meta name="description" content="CV and portfolio of Anton Sinitsyn (Senior Software Engineer, Android). Cyberpunk/90s styled resume with projects, experience, and skills.">
+  <meta name="theme-color" content="#00ffc6">
+  <meta property="og:title" content="Anton Sinitsyn — CV">
+  <meta property="og:description" content="Cyberpunk/90s styled resume with projects, experience, and skills.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sinii.github.io/">
+  <meta property="og:image" content="https://sinii.github.io/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-0: #0a0c10;
+      --bg-1: #0e1220;
+      --grid: rgba(0, 255, 198, 0.085);
+      --neon-cyan: #00ffc6;
+      --neon-pink: #ff3ff0;
+      --neon-yellow: #ffe600;
+      --text: #e6fff7;
+      --muted: #96b3ab;
+      --card: rgba(15, 20, 35, 0.65);
+      --border: rgba(0, 255, 198, 0.35);
+      --shadow: 0 0 24px rgba(0, 255, 198, 0.25), 0 0 48px rgba(255, 63, 240, 0.12);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255, 63, 240, 0.10), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(0, 255, 198, 0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, #07090f);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .scanlines {
+      pointer-events: none;
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px);
+      mix-blend-mode: overlay; opacity: .35;
+    }
+    .grid-bg {
+      position: fixed; inset: -2px;
+      background:
+        linear-gradient(transparent 0 49%, var(--grid) 50%, transparent 51%) 0 0 / 100% 40px,
+        linear-gradient(90deg, transparent 0 49%, var(--grid) 50%, transparent 51%) 0 0 / 40px 100%;
+      mask: radial-gradient(ellipse at center, black 0 50%, transparent 75%);
+      z-index: -1;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(10px) saturate(140%);
+      background: linear-gradient(180deg, rgba(10, 12, 16, .85), rgba(10, 12, 16, .35));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: 1080px; margin: 0 auto; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-logo {
+      width: 28px; height: 28px; border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 18px rgba(0,255,198,.5) inset, 0 0 12px rgba(0,255,198,.35);
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,198,.35), transparent 55%);
+    }
+    .brand-text { font: 900 18px/1 Orbitron, sans-serif; letter-spacing: .08em; color: var(--text); }
+    .nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 12px rgba(0,255,198,.6); }
+
+    .hero {
+      max-width: 1080px; margin: 36px auto 20px; padding: 20px 16px 0;
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px;
+    }
+    .glitch { position: relative; font: 900 clamp(28px, 6vw, 54px)/1.05 Orbitron, sans-serif; letter-spacing: .05em; }
+    .glitch span { display: inline-block; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute; left: 0; top: 0; width: 100%;
+      clip-path: inset(0 0 0 0);
+    }
+    .glitch::before { color: var(--neon-pink); transform: translate(.04em, .02em); filter: drop-shadow(0 0 10px rgba(255,63,240,.65)); }
+    .glitch::after { color: var(--neon-cyan); transform: translate(-.04em, -.02em); filter: drop-shadow(0 0 10px rgba(0,255,198,.65)); }
+    .title-line { color: var(--text); text-shadow: 0 0 16px rgba(0,255,198,.35); }
+    .subtitle { font: 600 13px/1.6 "Press Start 2P", system-ui; color: var(--neon-yellow); letter-spacing: .03em; margin-top: 10px; }
+    .lead { margin-top: 12px; color: var(--muted); max-width: 60ch; }
+    .cta-row { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; font-weight: 700;
+      color: var(--bg-0); background: var(--neon-cyan); border: 1px solid var(--neon-cyan);
+      box-shadow: var(--shadow);
+    }
+    .btn.secondary { color: var(--neon-cyan); background: transparent; border-color: var(--neon-cyan); }
+    .btn.secondary:hover { background: rgba(0,255,198,.1); }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 16px; position: relative;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: -1px; border: 1px solid rgba(255,63,240,.2); pointer-events: none;
+      mask: radial-gradient(800px 120px at 10% 0%, rgba(255,255,255,.45), transparent 65%);
+    }
+    .section { max-width: 1080px; margin: 0 auto; padding: 0 16px 20px; }
+    .section h2 { font: 800 16px/1 Orbitron, sans-serif; letter-spacing: .1em; margin: 0 0 12px; color: var(--neon-cyan); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stack { display: grid; gap: 12px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { border: 1px dashed rgba(0,255,198,.35); color: var(--text); padding: 6px 10px; font: 600 12px/1.2 "Press Start 2P", system-ui; background: rgba(0,255,198,.06); }
+    .item { display: grid; gap: 6px; }
+    .item .role { font-weight: 800; }
+    .item .meta { color: var(--muted); font-size: 14px; }
+    .item .desc { color: var(--text); }
+
+    footer { text-align: center; color: var(--muted); padding: 24px 16px 40px; }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div class="brand-text">Anton Sinitsyn</div>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#blog">Blog</a>
+        <a href="#education">Education</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="stack">
+        <h1 class="glitch" data-text="Anton Sinitsyn">
+          <span class="title-line">Anton Sinitsyn</span>
+        </h1>
+        <div class="subtitle">Senior Software Engineer • London, GB</div>
+        <p class="lead">Android-focused engineer delivering large-scale product experiences. Led client-side architecture and end-to-end flows for Reddit Collectible Avatars and Custom Posts, including WebView runtime integration, feature flagging, and analytics.</p>
+        <div class="cta-row">
+          <a class="btn blog-btn" href="blog.html">Open Blog</a>
+        </div>
+      </div>
+      <div class="card stack" role="complementary" aria-label="Quick info">
+        <div class="item"><div class="meta">Email</div><div><a href="mailto:leftsinii@gmail.com" style="color:var(--neon-cyan); text-decoration:none">leftsinii@gmail.com</a></div></div>
+        <div class="item"><div class="meta">Phone</div><div>+44 7557 553602</div></div>
+        <div class="item"><div class="meta">Location</div><div>London, GB</div></div>
+        <div class="item"><div class="meta">Website</div><div><a href="https://sinii.github.io" target="_blank" rel="noreferrer" style="color:var(--neon-cyan); text-decoration:none">sinii.github.io</a></div></div>
+        <div class="item"><div class="meta">Links</div><div class="tags"><a class="tag" href="https://github.com/sinii" target="_blank" rel="noreferrer">GitHub</a><a class="tag" href="https://www.linkedin.com/in/anton-sinitsyn-868445140/" target="_blank" rel="noreferrer">LinkedIn</a></div></div>
+      </div>
+    </section>
+
+    <section id="blog" class="section">
+      <h2>BLOG</h2>
+      <div id="home-posts" class="posts"></div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>ABOUT</h2>
+      <div class="card">
+        <p>Senior Software Engineer focused on Android. Experience leading architecture, design systems, and product delivery across consumer apps. Comfortable with Kotlin/Compose, WebView integrations, and building reliable, measurable experiences at scale.</p>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>EXPERIENCE</h2>
+      <div class="two-col">
+        <div class="card item">
+          <div class="role">Senior Software Engineer — Reddit, Inc.</div>
+          <div class="meta">Aug 2022 – Present • London, GB</div>
+          <div class="desc">Owned client-side architecture and delivery for Collectible Avatars on Android (refreshed store, deeper customization, end‑to‑end acquisition flow, onboarding for first‑time users). Designed and implemented the Android WebView runtime and integration surface for Custom Posts, including purchases, image uploads, and socket connections.</div>
+          <div class="tags"><span class="tag">Kotlin</span><span class="tag">Compose</span><span class="tag">MVVM</span><span class="tag">WebView</span><span class="tag">Feature Flags</span><span class="tag">Analytics</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Flutter Developer — Coingaming</div>
+          <div class="meta">Jan 2021 – Aug 2022 • Tallinn, Estonia</div>
+          <div class="desc">Led migration planning and execution: architecture decisions, module boundaries, design system adoption, CI/CD and release processes, and developer enablement. Owned core app flows and integrations with backend and compliance stakeholders.</div>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Clean Architecture</span><span class="tag">Redux</span><span class="tag">TDD</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Android Team Lead — Mail.Ru Group</div>
+          <div class="meta">Oct 2019 – Jan 2020 • Moscow, Russia</div>
+          <div class="desc">Led a cross‑platform team, planned releases, and supported product features across the mobile stack.</div>
+          <div class="tags"><span class="tag">Kotlin</span><span class="tag">Jetpack</span><span class="tag">MVI</span><span class="tag">Coroutines</span><span class="tag">TDD</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Senior Android Developer — Mail.Ru Group</div>
+          <div class="meta">Oct 2017 – Oct 2019 • Moscow, Russia</div>
+          <div class="desc">Shipped product improvements at scale, simplified processes, and maintained high quality standards.</div>
+          <div class="tags"><span class="tag">Kotlin</span><span class="tag">MVVM</span><span class="tag">RxJava</span><span class="tag">Retrofit2</span><span class="tag">Glide</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Senior Android Developer — Tencoins.org</div>
+          <div class="meta">Gzira, Malta</div>
+          <div class="desc">Fully responsible for the Android app: architecture, feature delivery, and product improvements.</div>
+          <div class="tags"><span class="tag">Kotlin</span><span class="tag">Jetpack</span><span class="tag">Coroutines</span><span class="tag">Navigation</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Android Developer — ivi.ru</div>
+          <div class="meta">Moscow, Russia</div>
+          <div class="desc">Developed new features and fixed bugs; created and published a Google Assistant app.</div>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Kotlin</span><span class="tag">Dagger2</span><span class="tag">RxJava2</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Android Developer — OOO “Brandport”</div>
+          <div class="meta">Moscow, Russia</div>
+          <div class="desc">Worked across company products and internal apps; full‑stack delivery from design to backend and app.</div>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Retrofit</span><span class="tag">RxJava</span><span class="tag">MySQL</span></div>
+        </div>
+        <div class="card item">
+          <div class="role">Android Developer — Freelance</div>
+          <div class="meta">Dec 2015 – Mar 2016 • Moscow, Russia</div>
+          <div class="desc">Delivered simple one‑ and two‑page apps for clients.</div>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Retrofit</span><span class="tag">GreenDao</span></div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="skills" class="section">
+      <h2>SKILLS</h2>
+      <div class="card">
+        <div class="tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Java</span>
+          <span class="tag">Compose</span>
+          <span class="tag">Android Jetpack</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">MVI</span>
+          <span class="tag">MVP</span>
+          <span class="tag">Clean Architecture</span>
+          <span class="tag">Dagger2</span>
+          <span class="tag">Anvil</span>
+          <span class="tag">Coroutines</span>
+          <span class="tag">Flow</span>
+          <span class="tag">RxJava2</span>
+          <span class="tag">Retrofit2</span>
+          <span class="tag">LiveData</span>
+          <span class="tag">ConstraintLayout</span>
+          <span class="tag">Motion Layout</span>
+          <span class="tag">Picasso</span>
+          <span class="tag">Glide</span>
+          <span class="tag">WebView</span>
+          <span class="tag">Espresso</span>
+          <span class="tag">JUnit</span>
+          <span class="tag">Mockk</span>
+          <span class="tag">Mockito</span>
+          <span class="tag">TDD</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Dart</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <h2>EDUCATION</h2>
+      <div class="card item">
+        <div class="role">Specialist Degree in Engineering (equal to master's)</div>
+        <div class="meta">2011 – 2017 • Bauman Moscow State Technical University, Moscow</div>
+        <div class="desc">Engineering specialization with a focus on software and systems.</div>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer>
+    © <span id="year"></span> Anton Sinitsyn. Built with neon and nostalgia.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+    (function() {
+      var canvas = document.getElementById('matrix');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var devicePixelRatioValue = window.devicePixelRatio || 1;
+      var fontSize = Math.max(12, Math.min(16, Math.floor(window.innerWidth / 90)));
+      var columns = 0;
+      var drops = [];
+      var speed = 0.25; // slower rain
+      var characters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$%#*+-=';
+
+      function resize() {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        canvas.width = Math.floor(w * devicePixelRatioValue);
+        canvas.height = Math.floor(h * devicePixelRatioValue);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(devicePixelRatioValue, 0, 0, devicePixelRatioValue, 0, 0);
+        fontSize = Math.max(12, Math.min(16, Math.floor(w / 90)));
+        columns = Math.ceil(w / fontSize);
+        drops = Array.from({ length: columns }, function(){ return Math.floor(Math.random() * (canvas.height / fontSize)); });
+      }
+
+      function draw() {
+        if (reduceMotion) return;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff88';
+        ctx.font = fontSize + 'px monospace';
+        ctx.globalAlpha = 0.6;
+        for (var i = 0; i < drops.length; i++) {
+          var text = characters.charAt(Math.floor(Math.random() * characters.length));
+          var x = i * fontSize;
+          var y = drops[i] * fontSize;
+          ctx.fillText(text, x, y);
+          if (y > canvas.height && Math.random() > 0.995) {
+            drops[i] = 0;
+          } else {
+            drops[i] += speed;
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      if (!reduceMotion) requestAnimationFrame(draw);
+    })();
+  </script>
+
+  <script>
+    (function(){
+      var list = document.getElementById('home-posts');
+      if (!list) return;
+      var OWNER = 'sinii'; var REPO = 'sinii.github.io';
+      function parseFrontMatter(text){
+        var m = text.match(/^---\s*[\r\n]+([\s\S]*?)\n---\s*[\r\n]+/); var data={}; var body=text;
+        if(m){ body=text.slice(m[0].length); m[1].split(/\r?\n/).forEach(function(line){ var i=line.indexOf(':'); if(i>-1){ var k=line.slice(0,i).trim().toLowerCase(); var v=line.slice(i+1).trim(); if(v.startsWith('"')&&v.endsWith('"')) v=v.slice(1,-1); data[k]=v; } }); }
+        return {data:data, body:body};
+      }
+      function inferMeta(text, filename){
+        var lines=text.split(/\r?\n/); var title=(lines.find(function(l){return l.startsWith('# ');})||'').replace(/^#\s+/,'').trim();
+        if(!title) title=filename.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
+        var desc=''; for(var i=0;i<lines.length;i++){ var l=lines[i].trim(); if(!l||l.startsWith('#')) continue; desc=l; break; }
+        var dm=text.match(/(20\d{2}-\d{2}-\d{2})/); var date=dm?dm[1]:''; return {title:title, description:desc, date:date};
+      }
+      function fetchFromGitHub(){
+        var url='https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/publications';
+        return fetch(url,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(arr){
+          var md=(arr||[]).filter(function(f){ return f.type==='file' && /\.md$/i.test(f.name); });
+          return Promise.all(md.map(function(f){
+            return fetch(f.download_url,{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(text){
+              var fm=parseFrontMatter(text); var meta=inferMeta(fm.body, f.name); var data=Object.assign(meta, fm.data);
+              return { slug:f.name.replace(/\.md$/i,''), title:data.title||meta.title, date:data.date||meta.date, description:data.description||meta.description };
+            }).catch(function(){ return null; });
+          })).then(function(items){ return items.filter(Boolean); });
+        });
+      }
+      function fallback(){ return fetch('publications/posts.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).catch(function(){return[];}); }
+      function load(){ return fetchFromGitHub().catch(function(){ return fallback(); }); }
+      load().then(function(items){ if(!Array.isArray(items)) return; items.sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}); items.slice(0,6).forEach(function(p){ var a=document.createElement('a'); a.href='blog.html?post='+encodeURIComponent(p.slug); a.className='card post-card'; a.innerHTML='<div class="title">'+(p.title||p.slug)+'</div><div class="meta">'+(p.date||'')+'</div><div class="desc">'+(p.description||'')+'</div>'; list.appendChild(a); }); });
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anton Sinitsyn",
+    "jobTitle": "Senior Software Engineer",
+    "email": "mailto:leftsinii@gmail.com",
+    "url": "https://sinii.github.io",
+    "sameAs": [
+      "https://github.com/sinii",
+      "https://www.linkedin.com/in/anton-sinitsyn-868445140/"
+    ]
+  }
+  </script>
+</body>
+</html>

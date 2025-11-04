@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Anton Sinitsyn</title>
+  <meta name="description" content="Blog posts by Anton Sinitsyn, rendered from Markdown in publications/ with the same neon cyberpunk design.">
+  <meta name="theme-color" content="#00ffc6">
+  <meta property="og:title" content="Blog — Anton Sinitsyn">
+  <meta property="og:description" content="Articles on Android, WebView, performance, and developer experience.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sinii.github.io/blog.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .posts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .post-card { display: grid; gap: 8px; }
+    .post-card .title { font-weight: 800; }
+    .post-card .meta { color: var(--muted); font-size: 14px; }
+    .post-card a { text-decoration: none; color: var(--text); }
+    .post-card a:hover { color: var(--neon-cyan); text-shadow: 0 0 12px rgba(0,255,198,.6); }
+    .article { max-width: 860px; margin: 0 auto; }
+    .md-content { line-height: 1.75; }
+    .md-content h1, .md-content h2, .md-content h3 { font-family: Orbitron, sans-serif; letter-spacing: .05em; }
+    .md-content img { max-width: 100%; height: auto; display: block; margin: 16px auto; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .back { display: inline-block; margin: 8px 0 16px; }
+    @media (max-width: 860px) { .posts { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header>
+    <nav class="nav">
+      <a class="brand" href="index.html" aria-label="Go home">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div class="brand-text">Anton Sinitsyn</div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="blog.html">Blog</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#education">Education</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="stack">
+        <h1 class="glitch" data-text="BLOG">
+          <span class="title-line">BLOG</span>
+        </h1>
+        <div class="subtitle">Articles rendered from Markdown</div>
+        <p class="lead">Posts live in the `publications/` folder as `.md` files with images supported. Use the manifest to list them below.</p>
+      </div>
+    </section>
+
+    <section class="section" id="list-section">
+      <h2>POSTS</h2>
+      <div id="posts" class="posts"></div>
+    </section>
+
+    <section class="section article" id="article-section" style="display:none;">
+      <a class="back btn secondary" href="blog.html">← Back to Posts</a>
+      <div class="card">
+        <div id="article" class="md-content"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Anton Sinitsyn.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+    (function() {
+      var canvas = document.getElementById('matrix');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var dpr = window.devicePixelRatio || 1;
+      var fontSize = Math.max(12, Math.min(16, Math.floor(window.innerWidth / 90)));
+      var columns = 0; var drops = []; var speed = 0.25;
+      var chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$%#*+-=';
+      function resize(){ var w=innerWidth,h=innerHeight; canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+'px'; canvas.style.height=h+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); fontSize=Math.max(12, Math.min(16, Math.floor(w/90))); columns=Math.ceil(w/fontSize); drops=Array.from({length: columns}, function(){ return Math.floor(Math.random()*(canvas.height/fontSize)); });} 
+      function draw(){ if(reduceMotion) return; ctx.fillStyle='rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#00ff88'; ctx.font=fontSize+'px monospace'; ctx.globalAlpha=0.6; for(var i=0;i<drops.length;i++){ var text=chars.charAt(Math.floor(Math.random()*chars.length)); var x=i*fontSize; var y=drops[i]*fontSize; ctx.fillText(text,x,y); if(y>canvas.height && Math.random()>0.995){ drops[i]=0; } else { drops[i]+=speed; } } requestAnimationFrame(draw);} 
+      addEventListener('resize', resize); resize(); if(!reduceMotion) requestAnimationFrame(draw);
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    (function(){
+      var params = new URLSearchParams(location.search);
+      var slug = params.get('post');
+      var postsEl = document.getElementById('posts');
+      var listSection = document.getElementById('list-section');
+      var articleSection = document.getElementById('article-section');
+      var articleEl = document.getElementById('article');
+
+      var OWNER = 'sinii';
+      var REPO = 'sinii.github.io';
+
+      function parseFrontMatter(text){
+        var m = text.match(/^---\s*[\r\n]+([\s\S]*?)\n---\s*[\r\n]+/);
+        var data = {}; var body = text;
+        if (m) {
+          body = text.slice(m[0].length);
+          m[1].split(/\r?\n/).forEach(function(line){
+            var idx = line.indexOf(':');
+            if (idx > -1) {
+              var k = line.slice(0, idx).trim().toLowerCase();
+              var v = line.slice(idx+1).trim();
+              if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1,-1);
+              data[k] = v;
+            }
+          });
+        }
+        return { data: data, body: body };
+      }
+
+      function inferMeta(text, filename){
+        var lines = text.split(/\r?\n/);
+        var title = (lines.find(function(l){ return l.startsWith('# '); }) || '').replace(/^#\s+/, '').trim();
+        if (!title) title = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').replace(/\b\w/g, function(c){return c.toUpperCase();});
+        // find first non-empty paragraph
+        var desc = '';
+        for (var i=0;i<lines.length;i++){
+          var l = lines[i].trim();
+          if (!l || l.startsWith('#')) continue;
+          desc = l; break;
+        }
+        var dateMatch = text.match(/(20\d{2}-\d{2}-\d{2})/);
+        var date = dateMatch ? dateMatch[1] : '';
+        return { title: title, description: desc, date: date };
+      }
+
+      function fetchFromGitHub(){
+        var url = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/publications';
+        return fetch(url, { cache: 'no-store' })
+          .then(function(r){ if(!r.ok) throw new Error('no api'); return r.json(); })
+          .then(function(arr){
+            var mdFiles = (arr || []).filter(function(f){ return f.type === 'file' && /\.md$/i.test(f.name); });
+            return Promise.all(mdFiles.map(function(f){
+              return fetch(f.download_url, { cache: 'no-store' })
+                .then(function(r){ return r.text(); })
+                .then(function(text){
+                  var fm = parseFrontMatter(text);
+                  var meta = inferMeta(fm.body, f.name);
+                  var data = Object.assign(meta, fm.data);
+                  return {
+                    slug: f.name.replace(/\.md$/i, ''),
+                    title: data.title || meta.title,
+                    date: data.date || meta.date,
+                    description: data.description || meta.description,
+                    path: f.path,
+                    download_url: f.download_url
+                  };
+                })
+                .catch(function(){ return null; });
+            })).then(function(items){ return items.filter(Boolean); });
+          });
+      }
+
+      function fallbackManifest(){
+        return fetch('publications/posts.json', { cache: 'no-store' })
+          .then(function(r){ return r.ok ? r.json() : []; })
+          .catch(function(){ return []; });
+      }
+
+      function loadPosts(){
+        return fetchFromGitHub().catch(function(){ return fallbackManifest(); });
+      }
+
+      function loadMarkdownBySlug(slug, items){
+        var found = items.find(function(p){ return p.slug === slug; });
+        var url = found && found.download_url ? found.download_url : ('publications/' + slug + '.md');
+        return fetch(url, { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : '# Not found'; });
+      }
+
+      function renderList(items){
+        postsEl.innerHTML = '';
+        items.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+        items.forEach(function(p){
+          var card = document.createElement('a');
+          card.href = 'blog.html?post=' + encodeURIComponent(p.slug);
+          card.className = 'card post-card';
+          card.innerHTML = '<div class="title">' + (p.title || p.slug) + '</div>' +
+            '<div class="meta">' + (p.date || '') + '</div>' +
+            '<div class="desc">' + (p.description || '') + '</div>';
+          postsEl.appendChild(card);
+        });
+      }
+
+      loadPosts().then(function(items){
+        if (!slug) {
+          listSection.style.display = '';
+          articleSection.style.display = 'none';
+          renderList(items);
+        } else {
+          listSection.style.display = 'none';
+          articleSection.style.display = '';
+          loadMarkdownBySlug(slug, items).then(function(md){
+            articleEl.innerHTML = marked.parse(md);
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
