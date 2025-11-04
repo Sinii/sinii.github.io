@@ -58,7 +58,7 @@ header {
   box-shadow: 0 0 18px rgba(0,255,198,.5) inset, 0 0 12px rgba(0,255,198,.35);
   background: radial-gradient(circle at 30% 30%, rgba(0,255,198,.35), transparent 55%);
 }
-.brand-text { font: 900 18px/1 Orbitron, sans-serif; letter-spacing: .08em; color: var(--text); }
+.brand-text { font-family: 'DotGothic16', Orbitron, sans-serif; font-weight: 400; font-size: 18px; line-height: 1; letter-spacing: .06em; color: var(--text); }
 .nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
 .nav-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 12px rgba(0,255,198,.6); }
@@ -67,7 +67,7 @@ header {
   max-width: 1080px; margin: 36px auto 20px; padding: 20px 16px 0;
   display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px;
 }
-.glitch { position: relative; font: 900 clamp(28px, 6vw, 54px)/1.05 Orbitron, sans-serif; letter-spacing: .05em; }
+.glitch { position: relative; font-family: 'DotGothic16', 'VT323', Orbitron, sans-serif; font-size: clamp(28px, 6vw, 54px); line-height: 1.05; font-weight: 400; letter-spacing: .02em; }
 .glitch span { display: inline-block; }
 .glitch::before, .glitch::after {
   content: attr(data-text);
@@ -78,7 +78,7 @@ header {
 .glitch::after { color: var(--neon-cyan); transform: translate(-.04em, -.02em); filter: drop-shadow(0 0 10px rgba(0,255,198,.65)); }
 .glitch:hover { animation: glitchShift 800ms steps(2, end) infinite; }
 .title-line { color: var(--text); text-shadow: 0 0 16px rgba(0,255,198,.35); }
-.subtitle { font: 600 13px/1.6 "Press Start 2P", system-ui; color: var(--neon-yellow); letter-spacing: .03em; margin-top: 10px; }
+.subtitle { font-family: 'VT323', monospace; font-weight: 400; font-size: 18px; line-height: 1.6; color: var(--neon-yellow); letter-spacing: .02em; margin-top: 10px; }
 .lead { margin-top: 12px; color: var(--muted); max-width: 60ch; }
 .cta-row { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
 .btn {
@@ -130,11 +130,11 @@ header {
 }
 .card:hover { transform: translateY(-2px); border-color: rgba(0,255,198,.6); box-shadow: 0 0 20px rgba(0,255,198,.35), 0 0 44px rgba(255,63,240,.2); }
 .section { max-width: 1080px; margin: 0 auto; padding: 0 16px 20px; }
-.section h2 { font: 800 16px/1 Orbitron, sans-serif; letter-spacing: .1em; margin: 0 0 12px; color: var(--neon-cyan); }
+.section h2 { font-family: 'DotGothic16', Orbitron, sans-serif; font-weight: 400; font-size: 18px; line-height: 1; letter-spacing: .08em; margin: 0 0 12px; color: var(--neon-cyan); }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .stack { display: grid; gap: 12px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag { border: 1px dashed rgba(0,255,198,.35); color: var(--text); padding: 6px 10px; font: 600 12px/1.2 "Press Start 2P", system-ui; background: rgba(0,255,198,.06); transition: background .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.tag { border: 1px dashed rgba(0,255,198,.35); color: var(--text); padding: 6px 10px; font-family: 'VT323', 'DotGothic16', system-ui; font-weight: 400; font-size: 14px; line-height: 1.2; background: rgba(0,255,198,.06); transition: background .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .tag:hover { background: rgba(0,255,198,.12); border-color: rgba(0,255,198,.6); box-shadow: 0 0 12px rgba(0,255,198,.35); }
 .item { display: grid; gap: 6px; }
 .item .role { font-weight: 800; }
@@ -149,9 +149,9 @@ footer { text-align: center; color: var(--muted); padding: 24px 16px 40px; }
 #about .card:hover, #experience .card:hover, #skills .card:hover, #education .card:hover { transform: none; border-color: transparent; box-shadow: none; }
 
 /* Markdown/article content */
-.md-content h1 { font-size: 28px; margin: 0 0 12px; }
-.md-content h2 { font-size: 22px; margin: 20px 0 8px; }
-.md-content h3 { font-size: 18px; margin: 18px 0 6px; }
+.md-content h1 { font-family: 'DotGothic16', 'VT323', Orbitron, sans-serif; font-size: 28px; margin: 0 0 12px; font-weight: 400; }
+.md-content h2 { font-family: 'DotGothic16', 'VT323', Orbitron, sans-serif; font-size: 22px; margin: 20px 0 8px; font-weight: 400; }
+.md-content h3 { font-family: 'DotGothic16', 'VT323', Orbitron, sans-serif; font-size: 18px; margin: 18px 0 6px; font-weight: 400; }
 .md-content p { margin: 10px 0; color: var(--text); }
 .md-content ul { padding-left: 20px; }
 .md-content code { background: rgba(0,255,198,.08); border: 1px solid var(--border); padding: 2px 5px; }
