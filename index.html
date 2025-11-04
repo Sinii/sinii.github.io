@@ -355,7 +355,11 @@
     (function(){
       try {
         var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
-        counts['index'] = (counts['index'] || 0) + 1;
+        var n = counts['index'];
+        if (typeof n !== 'number') {
+          n = Math.floor(50 + Math.random() * 51); // 50-100 baseline
+        }
+        counts['index'] = n + 1;
         localStorage.setItem('view_counts', JSON.stringify(counts));
         var el = document.getElementById('vc');
         if (el) el.textContent = counts['index'];

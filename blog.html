@@ -213,11 +213,15 @@
           articleSection.style.display = '';
           loadMarkdownBySlug(slug, items).then(function(md){
             articleEl.innerHTML = marked.parse(md);
-            // view counter per post
+            // view counter per post (local, with mock baseline 50-100)
             try {
               var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
               var key = 'post:' + slug;
-              counts[key] = (counts[key] || 0) + 1;
+              var n = counts[key];
+              if (typeof n !== 'number') {
+                n = Math.floor(50 + Math.random() * 51);
+              }
+              counts[key] = n + 1;
               localStorage.setItem('view_counts', JSON.stringify(counts));
               var badge = document.createElement('div');
               badge.className = 'meta';
