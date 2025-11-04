@@ -5,5 +5,12 @@
     "date": "2025-11-04",
     "description": "Template article with images and step-by-step instructions to create your first Android app using Cursor.",
     "path": "publications/cursor-android-setup.md"
+  },
+  {
+    "slug": "webview-hardening",
+    "title": "Hardening Android WebView for Production",
+    "date": "2025-11-04",
+    "description": "Secure bridges, origin allow‑listing, performance tuning, and observability patterns.",
+    "path": "publications/webview-hardening.md"
   }
 ]
