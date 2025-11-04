@@ -8,23 +8,23 @@ description: Template article with images and step-by-step instructions to creat
 
 > This is a ready-to-edit template article. Replace screenshots and tweak steps to match your setup.
 
-<img src="https://placehold.co/960x480/0a0c10/00ffc6?text=Cursor+x+Android" alt="Cursor + Android" width="820" />
+<!-- images removed per request; keep concise headings -->
 
 ## Prerequisites
 
 - Cursor installed (Stable or Insiders)
-- Android Studio (for SDK Manager, AVD, Gradle toolchain)
+- [Android Studio](https://developer.android.com/studio) (for [SDK Manager](https://developer.android.com/tools/sdkmanager), [AVD Manager](https://developer.android.com/studio/run/managing-avds), Gradle toolchain)
 - JDK 17+ (Android Studio includes a JDK)
 - Git configured (optional but recommended)
 
 ## 1) Install Android SDK and Tools
 
-1. Open Android Studio → More Actions → SDK Manager.
+1. Open Android Studio → More Actions → [SDK Manager](https://developer.android.com/tools/sdkmanager).
 2. Install: Android SDK Platform (latest), Android SDK Platform-Tools, Android SDK Build-Tools.
 3. Tools tab → Android Emulator.
-4. Create a virtual device (Pixel 7) via AVD Manager.
+4. Create a virtual device (Pixel 7) via [AVD Manager](https://developer.android.com/studio/run/managing-avds).
 
-<img src="https://placehold.co/960x540/0e1220/00ffc6?text=Android+SDK+Manager" alt="Android SDK Manager" width="820" />
+<!-- images removed -->
 
 ## 2) Create a New Android Project
 
@@ -32,7 +32,7 @@ description: Template article with images and step-by-step instructions to creat
 2. Name: `HelloCursor` • Package: `com.example.hellocursor` • Min SDK: 24+.
 3. Wait for Gradle sync to finish.
 
-<img src="https://placehold.co/960x540/0e1220/00ffc6?text=New+Android+Project" alt="New Android Project" width="820" />
+<!-- images removed -->
 
 ## 3) Open the Project in Cursor
 
@@ -56,7 +56,7 @@ If you prefer Android Studio to deploy, that's fine—Cursor will still edit the
 
 Open `app/src/main/java/.../MainActivity.kt` and ask:
 
-> "Convert activity to Jetpack Compose, create a neon button that increments a counter, and center it on screen."
+> "Convert activity to [Jetpack Compose](https://developer.android.com/jetpack/compose), create a neon button that increments a counter, and center it on screen."
 
 Example Compose scaffold:
 
@@ -88,7 +88,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell am start -n com.example.hellocursor/.MainActivity
 ```
 
-<img src="https://placehold.co/960x540/0e1220/00ffc6?text=First+Run+on+Emulator" alt="First run on emulator" width="820" />
+<!-- images removed -->
 
 ## 7) Add an Image
 
@@ -105,11 +105,11 @@ Image(
 
 ## 8) Next Steps
 
-- Ask Cursor to generate unit tests with `JUnit` + `Robolectric`.
-- Add a second screen and navigate using `Navigation Compose`.
-- Wire a network call with `Retrofit` + `OkHttp`.
+- Ask Cursor to generate unit tests with `JUnit` + [Robolectric](https://robolectric.org/).
+- Add a second screen and navigate using [Navigation Compose](https://developer.android.com/jetpack/compose/navigation).
+- Wire a network call with [Retrofit](https://square.github.io/retrofit/) + [OkHttp](https://square.github.io/okhttp/).
 
-<img src="https://placehold.co/900x300/0a0c10/00ffc6?text=Hello+Cursor+%E2%80%94+Complete" alt="Hello Cursor — Complete" width="760" />
+<!-- images removed -->
 
 ---
 

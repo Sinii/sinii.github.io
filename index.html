@@ -351,19 +351,15 @@
   </script>
 
   <script>
-    // simple local view counter for index page
+    // Remote view counter using CountAPI (persists across sessions)
     (function(){
-      try {
-        var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
-        var n = counts['index'];
-        if (typeof n !== 'number') {
-          n = Math.floor(50 + Math.random() * 51); // 50-100 baseline
-        }
-        counts['index'] = n + 1;
-        localStorage.setItem('view_counts', JSON.stringify(counts));
-        var el = document.getElementById('vc');
-        if (el) el.textContent = counts['index'];
-      } catch (e) {}
+      var NS = 'sinii_github_io';
+      var KEY = 'index';
+      var el = document.getElementById('vc');
+      fetch('https://api.countapi.xyz/hit/' + NS + '/' + encodeURIComponent(KEY))
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if (el && d && typeof d.value === 'number') el.textContent = d.value; })
+        .catch(function(){});
     })();
   </script>
 

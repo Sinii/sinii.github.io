@@ -184,8 +184,10 @@
         var found = items.find(function(p){ return p.slug === slug; });
         var url = found && found.download_url ? found.download_url : ('publications/' + slug + '.md');
         return fetch(url, { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : '# Not found'; }).then(function(text){
-          var m = text.match(/^---\s*[\r\n]+([\s\S]*?)\n---\s*[\r\n]+/);
-          return m ? text.slice(m[0].length) : text;
+          var front = parseFrontMatter(text);
+          var meta = Object.assign(inferMeta(front.body, slug + '.md'), front.data);
+          var body = front.body.replace(/^#\s+.*?\n+/, ''); // drop first H1
+          return { body: body, meta: meta };
         });
       }
 
@@ -211,23 +213,31 @@
         } else {
           listSection.style.display = 'none';
           articleSection.style.display = '';
-          loadMarkdownBySlug(slug, items).then(function(md){
-            articleEl.innerHTML = marked.parse(md);
-            // view counter per post (local, with mock baseline 50-100)
-            try {
-              var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
-              var key = 'post:' + slug;
-              var n = counts[key];
-              if (typeof n !== 'number') {
-                n = Math.floor(50 + Math.random() * 51);
-              }
-              counts[key] = n + 1;
-              localStorage.setItem('view_counts', JSON.stringify(counts));
-              var badge = document.createElement('div');
-              badge.className = 'meta';
-              badge.textContent = 'Views: ' + counts[key];
-              articleSection.querySelector('.card').insertAdjacentElement('afterbegin', badge);
-            } catch (e) {}
+          loadMarkdownBySlug(slug, items).then(function(res){
+            articleEl.innerHTML = marked.parse(res.body);
+            // Update hero with title/date/description
+            var h = document.querySelector('.hero .glitch');
+            var s = document.querySelector('.hero .subtitle');
+            var l = document.querySelector('.hero .lead');
+            if (h && res.meta && res.meta.title) {
+              h.setAttribute('data-text', res.meta.title);
+              var span = h.querySelector('.title-line');
+              if (span) span.textContent = res.meta.title;
+            }
+            if (s) s.textContent = (res.meta && res.meta.date) ? res.meta.date : '';
+            if (l) l.textContent = (res.meta && res.meta.description) ? res.meta.description : '';
+            // remote counter via CountAPI (real results only)
+            var NS = 'sinii_github_io';
+            var KEY = 'post_' + slug;
+            var badge = document.createElement('div');
+            badge.className = 'meta';
+            badge.textContent = 'Views: …';
+            articleSection.querySelector('.card').insertAdjacentElement('afterbegin', badge);
+            function update(v){ badge.textContent = 'Views: ' + v; }
+            fetch('https://api.countapi.xyz/hit/' + NS + '/' + encodeURIComponent(KEY))
+              .then(function(r){ return r.json(); })
+              .then(function(d){ if (d && typeof d.value === 'number') update(d.value); })
+              .catch(function(){});
           });
         }
       });
