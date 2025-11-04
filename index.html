@@ -291,7 +291,7 @@
   </main>
 
   <footer>
-    © <span id="year"></span> Anton Sinitsyn. Built with neon and nostalgia.
+    © <span id="year"></span> Anton Sinitsyn. Built with neon and nostalgia. · Views: <span id="vc"></span>
   </footer>
 
   <script>
@@ -347,6 +347,19 @@
       window.addEventListener('resize', resize);
       resize();
       if (!reduceMotion) requestAnimationFrame(draw);
+    })();
+  </script>
+
+  <script>
+    // simple local view counter for index page
+    (function(){
+      try {
+        var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
+        counts['index'] = (counts['index'] || 0) + 1;
+        localStorage.setItem('view_counts', JSON.stringify(counts));
+        var el = document.getElementById('vc');
+        if (el) el.textContent = counts['index'];
+      } catch (e) {}
     })();
   </script>
 

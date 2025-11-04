@@ -183,7 +183,10 @@
       function loadMarkdownBySlug(slug, items){
         var found = items.find(function(p){ return p.slug === slug; });
         var url = found && found.download_url ? found.download_url : ('publications/' + slug + '.md');
-        return fetch(url, { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : '# Not found'; });
+        return fetch(url, { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : '# Not found'; }).then(function(text){
+          var m = text.match(/^---\s*[\r\n]+([\s\S]*?)\n---\s*[\r\n]+/);
+          return m ? text.slice(m[0].length) : text;
+        });
       }
 
       function renderList(items){
@@ -210,6 +213,17 @@
           articleSection.style.display = '';
           loadMarkdownBySlug(slug, items).then(function(md){
             articleEl.innerHTML = marked.parse(md);
+            // view counter per post
+            try {
+              var counts = JSON.parse(localStorage.getItem('view_counts') || '{}');
+              var key = 'post:' + slug;
+              counts[key] = (counts[key] || 0) + 1;
+              localStorage.setItem('view_counts', JSON.stringify(counts));
+              var badge = document.createElement('div');
+              badge.className = 'meta';
+              badge.textContent = 'Views: ' + counts[key];
+              articleSection.querySelector('.card').insertAdjacentElement('afterbegin', badge);
+            } catch (e) {}
           });
         }
       });
