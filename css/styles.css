@@ -134,7 +134,7 @@ header {
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .stack { display: grid; gap: 12px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tag { border: 1px dashed rgba(0,255,198,.35); color: var(--text); padding: 6px 10px; font-family: 'VT323', 'DotGothic16', system-ui; font-weight: 400; font-size: 14px; line-height: 1.2; background: rgba(0,255,198,.06); transition: background .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.tag { border: 1px dashed rgba(0,255,198,.35); color: var(--text); padding: 6px 10px; font-family: 'VT323', 'DotGothic16', system-ui; font-weight: 400; font-size: 14px; line-height: 1; background: rgba(0,255,198,.06); transition: background .2s ease, box-shadow .2s ease, border-color .2s ease; display: inline-flex; align-items: center; vertical-align: middle; text-decoration: none; white-space: nowrap; }
 .tag:hover { background: rgba(0,255,198,.12); border-color: rgba(0,255,198,.6); box-shadow: 0 0 12px rgba(0,255,198,.35); }
 .item { display: grid; gap: 6px; }
 .item .role { font-weight: 800; }
